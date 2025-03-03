@@ -8,7 +8,6 @@ export function useViaCep() {
   const [savedAddresses, setSavedAddresses] = useState<ViaCepResponse[]>([]);
   const [isCached, setIsCached] = useState(false);
 
-  // Carrega endereços salvos do localStorage
   useEffect(() => {
     const storedAddresses = localStorage.getItem("savedAddresses");
     if (storedAddresses) {
@@ -21,7 +20,6 @@ export function useViaCep() {
     setError(null);
     setIsCached(false);
 
-    // 1️⃣ Verifica se o CEP já está no cache
     const cachedData = localStorage.getItem(`cep_${cep}`);
     if (cachedData) {
       setCepData(JSON.parse(cachedData));
@@ -31,7 +29,6 @@ export function useViaCep() {
     }
 
     try {
-      // 2️⃣ Busca os dados na API ViaCEP
       const response = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
       const data: ViaCepResponse = await response.json();
 
@@ -39,7 +36,6 @@ export function useViaCep() {
         throw new Error("CEP não encontrado");
       }
 
-      // 3️⃣ Armazena no cache
       localStorage.setItem(`cep_${cep}`, JSON.stringify(data));
 
       setCepData(data);

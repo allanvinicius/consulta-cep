@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { useViaCep } from "../../hooks/useViaCep";
 import { ContainerGrid } from "../Container";
 
@@ -35,15 +35,17 @@ export function CepSearch() {
   }
 
   return (
-    <section className="py-14">
+    <section className="py-14 max-[480px]:py-8">
       <ContainerGrid>
-        <div className="flex items-center justify-center flex-col w-full max-w-md mx-auto p-6 bg-white rounded-xl shadow-md space-y-4">
-          <h2 className="text-2xl font-bold text-gray-800">Buscar Endereço</h2>
+        <div className="flex items-center justify-center flex-col w-full max-w-xl mx-auto p-6 bg-white rounded-xl shadow-md space-y-4 max-[480px]:p-4">
+          <h1 className="text-2xl font-bold text-gray-800">Buscar Endereço</h1>
 
           <input
             type="text"
             value={cep}
-            onChange={(e) => setCep(e.target.value.replace(/\D/g, ""))}
+            onChange={(e: ChangeEvent<HTMLInputElement>) =>
+              setCep(e.target.value.replace(/\D/g, ""))
+            }
             maxLength={8}
             placeholder="Digite o CEP"
             className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -61,10 +63,6 @@ export function CepSearch() {
 
           {isCached && (
             <p className="text-green-500">Dados carregados do cache ✅</p>
-          )}
-
-          {showSuccessMessage && (
-            <p className="text-green-500">Endereço salvo com sucesso! 🎉</p>
           )}
 
           {cepData && showCepData && (
@@ -85,28 +83,35 @@ export function CepSearch() {
                 <strong>Cidade:</strong> {cepData.localidade} - {cepData.uf}
               </p>
 
-              <button
-                onClick={handleSave}
-                className="mt-3 w-full bg-green-500 text-white py-2 rounded-lg hover:bg-green-600 transition cursor-pointer"
-              >
-                Salvar Endereço
-              </button>
+              {!isCached && (
+                <button
+                  onClick={handleSave}
+                  className="mt-3 w-full bg-green-500 text-white py-2 rounded-lg hover:bg-green-600 transition cursor-pointer"
+                >
+                  Salvar Endereço
+                </button>
+              )}
             </div>
           )}
 
+          {showSuccessMessage && (
+            <p className="text-green-500">Endereço salvo com sucesso! 🎉</p>
+          )}
+
           {savedAddresses.length > 0 && (
-            <div className="mt-6">
-              <h3 className="text-lg font-semibold">Endereços Salvos:</h3>
+            <div className="flex flex-col">
+              <h2 className="text-lg font-semibold">Endereços Salvos:</h2>
 
               <ul className="mt-2 space-y-2">
-                {savedAddresses.map((addr) => (
-                  <li key={addr.cep} className="p-3 bg-gray-200 rounded-md">
-                    <p className="text-[15px]">
-                      {addr.logradouro}, {addr.bairro}, {addr.localidade} -{" "}
-                      {addr.uf} ({addr.cep})
-                    </p>
-                  </li>
-                ))}
+                {savedAddresses.map(
+                  ({ cep, logradouro, bairro, localidade, uf }) => (
+                    <li key={cep} className="p-3 bg-gray-200 rounded-md">
+                      <p className="text-[15px]">
+                        {logradouro}, {bairro}, {localidade} - {uf} ({cep})
+                      </p>
+                    </li>
+                  )
+                )}
               </ul>
             </div>
           )}
