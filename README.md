@@ -1,54 +1,72 @@
-# React + TypeScript + Vite
+# 📌 Consulta de Endereços via CEP
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 📋 Sobre o Projeto
 
-Currently, two official plugins are available:
+Este projeto é uma aplicação em **React com TypeScript** que permite ao usuário consultar endereços via **API do ViaCEP**, armazená-los localmente e listá-los. A aplicação também implementa um sistema de cache para evitar requisições desnecessárias.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## 🚀 Tecnologias Utilizadas
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- React com TypeScript
+- Tailwind CSS para estilização
+- localStorage para persistência de endereços
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+---
+
+## 🛠 Instalação e Execução
+
+### 🔧 Pré-requisitos
+
+Antes de começar, você precisará ter instalado em sua máquina:
+
+- [Node.js](https://nodejs.org/)
+- [Yarn](https://yarnpkg.com/) ou npm
+
+### 📦 Instalando as dependências
+
+```bash
+# Clone o repositório
+git clone https://github.com/allanvinicius/consulta-cep.git
+
+# Acesse o diretório do projeto
+cd consulta-cep
+
+# Instale as dependências
+yarn install  # ou npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### ▶️ Executando o projeto
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+```bash
+# Inicie o servidor de desenvolvimento
+yarn start  # ou npm start
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+# O projeto estará disponível em http://localhost:5173
 ```
+
+---
+
+## 🤔 Decisões Técnicas
+
+### 📌 Consulta ao ViaCEP
+
+A aplicação consome a API pública do [ViaCEP](https://viacep.com.br) para obter informações de endereço a partir do CEP inserido pelo usuário.
+
+### 📌 Persistência de Dados
+
+Os endereços consultados são armazenados no **localStorage**, permitindo que fiquem disponíveis mesmo após o recarregamento da página.
+
+### 📌 Implementação de Cache
+
+Para evitar consultas desnecessárias à API do ViaCEP, a aplicação verifica se um CEP já foi buscado anteriormente e, caso positivo, reutiliza os dados salvos no cache local.
+
+### 📌 Estilização
+
+Utilizamos **Tailwind CSS** para garantir um design responsivo e modular.
+
+---
+
+## 📄 Licença
+
+Este projeto está sob a licença MIT. Para mais detalhes, consulte o arquivo `LICENSE`.
