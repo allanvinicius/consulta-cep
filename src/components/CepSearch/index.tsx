@@ -18,6 +18,7 @@ export function CepSearch() {
   const [showCepData, setShowCepData] = useState<boolean>(false);
   const [inputError, setInputError] = useState<string>("");
   const [visibleAddress, setVisibleAddress] = useState<number>(3);
+  const [isSearchDisabled, setIsSearchDisabled] = useState<boolean>(false);
 
   function handleSearch() {
     if (cep.length !== 8) {
@@ -26,14 +27,10 @@ export function CepSearch() {
     }
 
     setInputError("");
+    setIsSearchDisabled(true);
 
-    if (isCached || error) {
-      setCep("");
-      setShowCepData(true);
-    }
-
-    fetchCep(cep);
     setShowCepData(true);
+    fetchCep(cep);
   }
 
   function handleSave() {
@@ -44,6 +41,7 @@ export function CepSearch() {
     setTimeout(() => {
       setShowSuccessMessage(false);
       setShowCepData(false);
+      setIsSearchDisabled(false);
     }, 2000);
   }
 
@@ -56,6 +54,8 @@ export function CepSearch() {
     } else {
       setInputError("O CEP deve conter exatamente 8 dígitos.");
     }
+
+    setIsSearchDisabled(false);
   }
 
   function handleLoadMore() {
@@ -83,9 +83,9 @@ export function CepSearch() {
 
           <button
             onClick={handleSearch}
-            disabled={loading || cep.length !== 8}
+            disabled={loading || cep.length !== 8 || isSearchDisabled}
             className={`w-full py-2 rounded-lg transition ${
-              loading || cep.length !== 8
+              loading || cep.length !== 8 || isSearchDisabled
                 ? "bg-blue-600/50 text-white/50 cursor-not-allowed"
                 : "bg-blue-500 text-white hover:bg-blue-600 cursor-pointer"
             }`}
