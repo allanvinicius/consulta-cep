@@ -13,10 +13,11 @@ export function CepSearch() {
     isCached,
   } = useViaCep();
 
-  const [cep, setCep] = useState("");
-  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
-  const [showCepData, setShowCepData] = useState(false);
-  const [inputError, setInputError] = useState("");
+  const [cep, setCep] = useState<string>("");
+  const [showSuccessMessage, setShowSuccessMessage] = useState<boolean>(false);
+  const [showCepData, setShowCepData] = useState<boolean>(false);
+  const [inputError, setInputError] = useState<string>("");
+  const [visibleAddress, setVisibleAddress] = useState<number>(3);
 
   function handleSearch() {
     if (cep.length !== 8) {
@@ -53,6 +54,10 @@ export function CepSearch() {
     } else {
       setInputError("O CEP deve conter exatamente 8 dígitos.");
     }
+  }
+
+  function handleLoadMore() {
+    setVisibleAddress((prev) => prev + 3);
   }
 
   return (
@@ -95,19 +100,21 @@ export function CepSearch() {
           {cepData && showCepData && (
             <div className="w-full flex flex-col mt-4 p-4 bg-gray-100 rounded-lg">
               <p className="text-black text-[15px]">
-                <strong>CEP:</strong> {cepData.cep}
+                <span className="font-bold">CEP:</span> {cepData.cep}
               </p>
 
               <p className="text-black text-[15px]">
-                <strong>Logradouro:</strong> {cepData.logradouro}
+                <span className="font-bold">Logradouro:</span>{" "}
+                {cepData.logradouro}
               </p>
 
               <p className="text-black text-[15px]">
-                <strong>Bairro:</strong> {cepData.bairro}
+                <span className="font-bold">Bairro:</span> {cepData.bairro}
               </p>
 
               <p className="text-black text-[15px]">
-                <strong>Cidade:</strong> {cepData.localidade} - {cepData.uf}
+                <span className="font-bold">Cidade:</span> {cepData.localidade}{" "}
+                - {cepData.uf}
               </p>
 
               {!isCached && (
@@ -130,17 +137,29 @@ export function CepSearch() {
               <h2 className="text-lg font-semibold">Endereços Salvos:</h2>
 
               <ul className="mt-2 space-y-2">
-                {savedAddresses.map(
-                  ({ cep, logradouro, bairro, localidade, uf }) => (
-                    <li key={cep} className="p-3 bg-gray-200 rounded-md">
-                      <p className="text-[15px]">
+                {savedAddresses
+                  .slice(0, visibleAddress)
+                  .map(({ cep, logradouro, bairro, localidade, uf }) => (
+                    <li
+                      key={cep}
+                      className="p-3 bg-gray-200 rounded-md animate-fadeIn"
+                    >
+                      <p className="text-[15px] font-medium">
                         {logradouro}, {bairro}, {localidade} - {uf} ({cep})
                       </p>
                     </li>
-                  )
-                )}
+                  ))}
               </ul>
             </div>
+          )}
+
+          {visibleAddress < savedAddresses.length && (
+            <button
+              onClick={handleLoadMore}
+              className="w-full py-2 rounded-lg bg-gray-500 text-white cursor-pointer hover:bg-gray-600 transition-all"
+            >
+              Carregar Mais
+            </button>
           )}
         </div>
       </ContainerGrid>
