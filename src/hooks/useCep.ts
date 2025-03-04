@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { ViaCepResponse } from "../types";
 
-export function useViaCep() {
+export function useCep() {
   const [cepData, setCepData] = useState<null | ViaCepResponse>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);

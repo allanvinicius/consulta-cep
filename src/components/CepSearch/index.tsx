@@ -1,5 +1,5 @@
 import { ChangeEvent, useState } from "react";
-import { useViaCep } from "../../hooks/useViaCep";
+import { useCep } from "../../hooks/useCep";
 import { ContainerGrid } from "../Container";
 
 export function CepSearch() {
@@ -11,7 +11,7 @@ export function CepSearch() {
     loading,
     savedAddresses,
     isCached,
-  } = useViaCep();
+  } = useCep();
 
   const [cep, setCep] = useState<string>("");
   const [showSuccessMessage, setShowSuccessMessage] = useState<boolean>(false);
