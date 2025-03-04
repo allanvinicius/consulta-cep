@@ -4,9 +4,9 @@ import { ViaCepResponse } from "../types";
 export function useViaCep() {
   const [cepData, setCepData] = useState<null | ViaCepResponse>(null);
   const [error, setError] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState<boolean>(false);
   const [savedAddresses, setSavedAddresses] = useState<ViaCepResponse[]>([]);
-  const [isCached, setIsCached] = useState(false);
+  const [isCached, setIsCached] = useState<boolean>(false);
 
   useEffect(() => {
     const storedAddresses = localStorage.getItem("savedAddresses");

@@ -25,11 +25,13 @@ export function CepSearch() {
       return;
     }
 
+    setInputError("");
+
     if (isCached || error) {
       setCep("");
+      setShowCepData(true);
     }
 
-    setInputError("");
     fetchCep(cep);
     setShowCepData(true);
   }
@@ -99,20 +101,20 @@ export function CepSearch() {
 
           {cepData && showCepData && (
             <div className="w-full flex flex-col mt-4 p-4 bg-gray-100 rounded-lg">
-              <p className="text-black text-[15px]">
+              <p className="font-normal text-black text-[15px]">
                 <span className="font-bold">CEP:</span> {cepData.cep}
               </p>
 
-              <p className="text-black text-[15px]">
+              <p className="font-normal text-black text-[15px]">
                 <span className="font-bold">Logradouro:</span>{" "}
                 {cepData.logradouro}
               </p>
 
-              <p className="text-black text-[15px]">
+              <p className="font-normal text-black text-[15px]">
                 <span className="font-bold">Bairro:</span> {cepData.bairro}
               </p>
 
-              <p className="text-black text-[15px]">
+              <p className="font-normal text-black text-[15px]">
                 <span className="font-bold">Cidade:</span> {cepData.localidade}{" "}
                 - {cepData.uf}
               </p>
@@ -144,7 +146,7 @@ export function CepSearch() {
                       key={cep}
                       className="p-3 bg-gray-200 rounded-md animate-fadeIn"
                     >
-                      <p className="text-[15px] font-medium">
+                      <p className="text-[15px] font-normal">
                         {logradouro}, {bairro}, {localidade} - {uf} ({cep})
                       </p>
                     </li>

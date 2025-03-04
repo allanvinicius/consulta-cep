@@ -1,10 +1,5 @@
 import { twMerge } from "tailwind-merge";
-import React from "react";
-
-interface ContainerGridProps {
-  children: React.ReactNode;
-  className?: string;
-}
+import { ContainerGridProps } from "../../types";
 
 export function ContainerGrid({ children, className }: ContainerGridProps) {
   const defaultClass =
