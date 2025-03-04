@@ -21,28 +21,28 @@ Este projeto é uma aplicação em **React com TypeScript** que permite ao usuá
 Antes de começar, você precisará ter instalado em sua máquina:
 
 - [Node.js](https://nodejs.org/)
-- [Yarn](https://yarnpkg.com/) ou npm
+- npm (gerenciador de pacotes do Node.js)
 
 ### 📦 Instalando as dependências
 
 ```bash
 # Clone o repositório
-git clone https://github.com/allanvinicius/consulta-cep.git
+git clone https://github.com/seu-usuario/seu-repositorio.git
 
 # Acesse o diretório do projeto
 cd consulta-cep
 
 # Instale as dependências
-yarn install  # ou npm install
+npm install
 ```
 
 ### ▶️ Executando o projeto
 
 ```bash
 # Inicie o servidor de desenvolvimento
-yarn start  # ou npm start
+npm run dev
 
-# O projeto estará disponível em http://localhost:5173
+# O projeto estará disponível em http://localhost:3000
 ```
 
 ---
@@ -51,7 +51,7 @@ yarn start  # ou npm start
 
 ### 📌 Consulta ao ViaCEP
 
-A aplicação consome a API pública do [ViaCEP](https://viacep.com.br) para obter informações de endereço a partir do CEP inserido pelo usuário.
+A aplicação consome a API pública do [ViaCEP](https://viacep.com.br/ws/) para obter informações de endereço a partir do CEP inserido pelo usuário.
 
 ### 📌 Persistência de Dados
 
