@@ -51,7 +51,7 @@ npm run dev
 
 ### 📌 Consulta ao ViaCEP
 
-A aplicação consome a API pública do [ViaCEP](https://viacep.com.br/ws/) para obter informações de endereço a partir do CEP inserido pelo usuário.
+A aplicação consome a API pública do [ViaCEP](https://viacep.com.br) para obter informações de endereço a partir do CEP inserido pelo usuário.
 
 ### 📌 Persistência de Dados
 
